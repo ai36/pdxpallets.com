@@ -5,6 +5,7 @@ import './globals.css';
 import { SiteHeader } from '@/components/layout/SiteHeader';
 import { SiteFooter } from '@/components/layout/SiteFooter';
 import { Developer } from '@/components/developer/Developer';
+import { CookieBanner } from '@/components/cookies/CookieBanner';
 import { SITE_NAME, SITE_URL } from '@/constants';
 
 export const viewport: Viewport = {
@@ -61,6 +62,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main id="main-content">{children}</main>
         <SiteFooter />
         <Developer />
+        <CookieBanner />
       </body>
     </html>
   );
