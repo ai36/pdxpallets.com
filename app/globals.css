@@ -1,0 +1,193 @@
+@import "tailwindcss";
+
+/* ─── Design Tokens → Tailwind utilities ──── */
+@theme {
+  /* Fonts */
+  --font-sans: var(--font-geist-sans), 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: var(--font-geist-mono), 'Fira Code', monospace;
+
+  /* Brand: Pine Green */
+  --color-brand:        #2D6347;
+  --color-brand-dark:   #245038;
+  --color-brand-light:  #4A8165;
+  --color-brand-pale:   #EAEFEC;
+  --color-brand-mid:    #9CBFAA;
+
+  /* Accent: Kraft Amber */
+  --color-kraft:        #A67320;
+  --color-kraft-dark:   #654510;
+  --color-kraft-pale:   #FBF6EC;
+  --color-kraft-mid:    #F4E9CC;
+
+  /* Surfaces */
+  --color-page:         #F9F8F6;
+  --color-card:         #FFFFFF;
+  --color-subtle:       #F1F0ED;
+  --color-inverse:      #1D1B17;
+
+  /* Text */
+  --color-ink:          #1D1B17;
+  --color-muted:        #66625C;  /* AA ≥5.5:1 on page/card */
+  --color-dim:          #757170;  /* AA ≥4.5:1 on page/card */
+
+  /* Borders */
+  --color-edge:         #E3E1DC;
+  --color-edge-strong:  #4B4842;
+
+  /* Semantic */
+  --color-ok:           #16A34A;
+  --color-ok-pale:      #DCFCE7;
+  --color-ok-dark:      #15803D;
+  --color-warn:         #D97706;
+  --color-warn-pale:    #FEF3C7;
+  --color-err:          #DC2626;
+  --color-err-pale:     #FEE2E2;
+  --color-info:         #2563EB;
+  --color-info-pale:    #DBEAFE;
+
+  /* Footer — always dark, never inverted by theme */
+  --color-footer:       #1D1B17;
+  --color-footer-fg:    #F9F8F6;  /* 15.2:1 on footer */
+  --color-footer-muted: #9CBFAA;  /* primary-200, 7.1:1 on footer */
+  --color-footer-dim:   #9E9A93;  /* neutral-400, 5.8:1 on footer */
+  --color-footer-edge:  #312E29;  /* subtle divider on dark bg */
+
+  /* Spacing extensions */
+  --spacing-18:  4.5rem;
+  --spacing-22:  5.5rem;
+  --spacing-88:  22rem;
+  --spacing-128: 32rem;
+}
+
+/* ─── Base ──────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+/* Prevent double-tap zoom delay on touch devices */
+a, button, [role="button"] { touch-action: manipulation; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  background-color: var(--color-page);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── Focus ─────────────────────────────── */
+:focus-visible {
+  outline: 3px solid var(--color-brand);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+:focus:not(:focus-visible) { outline: none; }
+
+/* ─── Skip Link ─────────────────────────── */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 1rem;
+  z-index: 9999;
+  padding: 0.75rem 1rem;
+  background: var(--color-brand);
+  color: #fff;
+  font-weight: 600;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: top 150ms ease;
+}
+.skip-link:focus { top: 1rem; }
+
+/* ─── Input base ────────────────────────── */
+.input {
+  display: block;
+  width: 100%;
+  height: 2.75rem;
+  padding: 0 1rem;
+  background: #fff;
+  border: 1.5px solid var(--color-edge);
+  border-radius: 8px;
+  font-size: 1rem;
+  color: var(--color-ink);
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--color-brand);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-brand) 20%, transparent);
+}
+
+.input[aria-invalid="true"] {
+  border-color: var(--color-err);
+}
+
+textarea.input {
+  height: auto;
+  padding-top: 0.625rem;
+  padding-bottom: 0.625rem;
+  resize: vertical;
+}
+
+/* ─── Section spacing util ──────────────── */
+.section {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+@media (min-width: 768px) {
+  .section { padding-top: 6rem; padding-bottom: 6rem; }
+}
+
+/* ─── Container ─────────────────────────── */
+.container {
+  width: 100%;
+  max-width: 80rem;
+  margin-inline: auto;
+  padding-inline: 1rem;
+}
+@media (min-width: 640px)  { .container { padding-inline: 1.5rem; } }
+@media (min-width: 1024px) { .container { padding-inline: 2rem; } }
+
+/* ─── Headings — prevent orphans ────────── */
+h1, h2, h3, h4 { text-wrap: balance; }
+
+/* ─── Tabular numbers for prices/stats ──── */
+.tabular { font-variant-numeric: tabular-nums; }
+
+/* ─── Prose for FAQ / About ─────────────── */
+.prose p  { margin-bottom: 1rem; }
+.prose h2 { font-size: 1.5rem; font-weight: 700; margin-bottom: 0.75rem; }
+.prose ul { list-style: disc; padding-left: 1.5rem; margin-bottom: 1rem; }
+.prose li { margin-bottom: 0.25rem; }
+
+/* ─── Dark mode ─────────────────────────── */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-page:        #0E0D0B;
+    --color-card:        #1D1B17;
+    --color-subtle:      #312E29;
+    --color-ink:         #F9F8F6;
+    --color-muted:       #9E9A93;  /* AA ≥6.5:1 on dark card */
+    --color-dim:         #9A9690;  /* AA ≥5.5:1 on dark card */
+    --color-edge:        #312E29;
+    --color-edge-strong: #4B4842;
+    --color-brand-pale:  #08130D;
+    --color-kraft-pale:  #211605;
+    --color-inverse:     #F9F8F6;
+  }
+}
